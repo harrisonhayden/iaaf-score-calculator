@@ -1,31 +1,33 @@
 from datetime import datetime
 
-# All this stuff will go in main
 
-short = ['100M', '200M', '400M', '100M HURDLES', '400M HURDLES', 
-         '4X100M RELAY']
 
-mid = ['800M', '1500M', '5000M', '10000M', '3000M STEEPLECHASE']
+SHORT = ['100M', '200M', '400M', '100M HURDLES', '400M HURDLES', 
+  '4X100M RELAY']
 
-long = ['MARATHON', '20KM RACE WALK', '50KM RACE WALK']
+MID = ['800M', '1500M', '5000M', '10000M', '3000M STEEPLECHASE']
 
-field = ['HIGH JUMP', 'POLE VAULT', 'LONG JUMP', 'TRIPLE JUMP', 'SHOT PUT',
-         'DISCUS', 'HAMMER', 'JAVELIN', 'DECATHLON', 'HEPTATHLON']
+LONG = ['MARATHON', '20KM RACE WALK', '50KM RACE WALK']
 
-event = input('Enter event: ').upper()
-sex = input('Enter sex (M or F): ').upper()
-result = input('Enter result: ')
+FIELD = ['HIGH JUMP', 'POLE VAULT', 'LONG JUMP', 'TRIPLE JUMP', 'SHOT PUT',
+  'DISCUS', 'HAMMER', 'JAVELIN', 'DECATHLON', 'HEPTATHLON']
+
+def main():
+  event = input('Enter event: ').upper()
+  sex = input('Enter sex (M or F): ').upper()
+  result = input('Enter result: ')
+  print('IAAF Score: ' + str(get_score(event, sex, result)))
 
 def convert_to_seconds(mark, event):
 
-  if event in mid:
+  if event in MID:
     if mark.count('.') == 1:
       t = datetime.strptime(mark, '%M:%S.%f')
     else:
       t = datetime.strptime(mark, '%M:%S')
     return t.minute * 60 + t.second + t.microsecond/1000000
 
-  elif event in long:
+  elif event in LONG:
     if mark.count(':') == 1:
       t = datetime.strptime(mark, '%H:%M')
     elif mark.count('.') == 1:
@@ -162,4 +164,5 @@ def get_constants(event, sex):
     if event == 'HEPTATHLON':
       return [55990, 0.000001581, -5000]
 
-print('IAAF Score: ' + str(get_score(event, sex, result)))
+if __name__ == '__main__':
+    main()
